@@ -45,7 +45,7 @@ func main() {
 	errEnv := godotenv.Load()
 	// This is where your webhook info gets sent to in Sentry as events
 	DSN_PROJECT = os.Getenv("DSN_PROJECT") // ido-native in testorg-az
-
+	fmt.Println("> DSN_PROJECT", DSN_PROJECT)
 	local = flag.Bool("local", false, "local development web server")
 	flag.Parse()
 	if errEnv != nil && *local == true {
@@ -83,14 +83,22 @@ func HandleLambdaRequest(ctx context.Context, webhook Webhook) (string, error) {
 }
 
 func App(webhook Webhook) {
-	// TODO
-	prettyPrint(webhook.Data.Error["title"].(string))
 
-	// data := webhook["Data"].(map[string]interface{}) // does not support indexing
+	errorEvent := webhook.Data.Error
+	prettyPrint(errorEvent["title"].(string))
+	// 1. Use errorEvent as the payload on sending to next org
 
-	// WORKS, this printed
-	// data := webhook.Data
-	// fmt.Println("\n> App done", data)
+	sentryEvent := &Event{}
+
+	sentryEvent.setDsn(DSN_PROJECT)
+
+	// TODO - need to marshal the errorEvent into an Error Struct so can update the Tags (customer identifier tag)
+	sentryEvent.Error = errorEvent
+
+	request := NewRequest(*sentryEvent)
+	request.send()
+
+	fmt.Println("\n> App done")
 }
 
 func prettyPrint(v interface{}) {
