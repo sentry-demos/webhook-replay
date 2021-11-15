@@ -1,0 +1,17 @@
+.env
+.virtualenv/*
+.vscode/*
+notes.txt
+node_modules
+node/node_modules
+bin/*
+deprecated/*
+key.json
+*read
+*key.json
+*.json
+*.db
+*.yaml
+*.yml
+events/
+events-errors/
