@@ -4,10 +4,6 @@ import (
 	"fmt"
 )
 
-// Platform names that Sentry.io is expecting
-const COCOA = "cocoa"
-const JAVA = "java"
-
 // https://develop.sentry.dev/sdk/event-payloads/#optional-attributes see 'error' attribute
 // https://github.com/getsentry/sentry/blob/master/src/sentry/models/eventerror.py#L8
 type ProcessingWarning struct {
