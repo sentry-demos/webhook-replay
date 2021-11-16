@@ -2,13 +2,13 @@
 
 ## Setup & Run
 
-You need 2 orgs in Sentry. Let's call them the origin and destination org.
+You need 2 orgs in Sentry. Let's call them the origin and destination org. The webserver described here is something you're going to run, and its code is in main.go.
 
 1. In the origin org, setup an Internal Integration with a URL that is the webhook-replay webserver hosted by ngrok. `ngrok http 8000`
-2. In your webserver, put the DSN key of the destination org.
-3. Run the webserver, `go build -o main *.go && ./main --local`
-3. Send an error event to a project in the origin org.
-4. Check your destination org's project to see the error event. It will also be in the origin org's project.
+2. Put the DSN of the destination org's project in .env. This is for the webserver (main.go)
+3. Run the webserver by running `go build -o main *.go && ./main --local`
+4. Send an error event to a project in the origin org.
+5. Check your destination org's project to see the error event. It will also be in the origin org's project.
 
 Error event -> origin org project -> Internal Integration -> webhook (ngrok) -> destination org project
 
