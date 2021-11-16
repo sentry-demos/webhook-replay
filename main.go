@@ -86,13 +86,12 @@ func App(webhook Webhook) {
 
 	errorEvent := webhook.Data.Error
 	prettyPrint(errorEvent["title"].(string))
-	// 1. Use errorEvent as the payload on sending to next org
 
 	sentryEvent := &Event{}
 
 	sentryEvent.setDsn(DSN_PROJECT)
 
-	// TODO - need to marshal the errorEvent into an Error Struct so can update the Tags (customer identifier tag)
+	// NEXT - need to marshal the errorEvent into an Error Struct so can update the Tags (customer identifier tag)
 	sentryEvent.Error = errorEvent
 
 	request := NewRequest(*sentryEvent)

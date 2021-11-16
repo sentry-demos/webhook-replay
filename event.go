@@ -9,7 +9,7 @@ import (
 
 type Event struct {
 	Error map[string]interface{}
-	// *Error
+	// *Error // NEXT, will need this for unmarshaling and updating the Error's tags
 	*DSN
 }
 
