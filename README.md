@@ -1,10 +1,12 @@
 # Webhook Replay
 
+ngrok and the Internation Integration are missing from this readme.
+
 ## Development
 1. set your Sentry DSN's in .env
 2. `go build -o main *.go`
 3. `./main --local`
-4. Send `webhook.development.json` via Postman to localhost:8000
+4. Send error to origin Sentry org
 5. Check Sentry.io to see your events.
 
 ## Production
@@ -12,7 +14,7 @@
 2. `GOOS=linux GOARCH=amd64 go build -o ./main *.go`
 3. `zip function.zip main`
 4. Upload `function.zip` to your lambda
-5. Send `webhook.production.json` to mParticle via Postman Collection
+5. Send error to origin Sentry org.
 6. Check Sentry.io to see your events.
 
 
